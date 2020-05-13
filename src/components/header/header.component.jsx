@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -12,34 +11,33 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import CartIcon from '../cart-icon/cart-icon.component';
-import './header.styles.scss';
-
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink } from './header.styles';
+//SWITCH TO STYLED COMPONENTS TO AVOID CSS BLENDING
 const Header = ({currentUser, hidden}) => (
-	<div className='header'>
-		<Link className='logo-container' to='/'>
+	<HeaderContainer>
+		<LogoContainer to='/'>
 			<Logo className='logo' />
-		</Link>
-		<div className='options'>
-			<Link className='option' to='shop'>
+		</LogoContainer>
+		<OptionsContainer>
+			<OptionLink to='shop'>
 				SHOP
-			</Link>
-			<Link className='option' to='shop'>
+			</OptionLink>
+			<OptionLink to='shop'>
 				CONTACT
-			</Link>
+			</OptionLink>
 			{
 				currentUser ?
-				(<div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>)
+				(<OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>)
 				:
-				(<Link className='option' to='/signin'>SIGN IN</Link>
+				(<OptionLink className='option' to='/signin'>SIGN IN</OptionLink>
 			)}
 			<CartIcon />
-		</div>
+		</OptionsContainer>
 		{
 			hidden ? null :
 			<CartDropdown />
 		}
-	
-	</div>
+	</HeaderContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
