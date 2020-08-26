@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './App.css';
-
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -10,8 +8,9 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Homepage from './pages/homepage/homepage.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import ShopPage from './pages/shop/shop.component';
-
 import Header from './components/header/header.component';
+
+import { GlobalStyle } from './global.styles';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utilis';
 
@@ -49,18 +48,19 @@ class App extends React.Component {
   render(){
     return (
     <div >
-    <Header />
-    <Switch>
-     <Route exact path='/' component={Homepage} />
-     <Route path='/shop' component={ShopPage} />
-     <Route exact path='/checkout' component={CheckoutPage} />
-     <Route exact path='/signin' 
-                  render={() => 
-                    this.props.currentUser ? 
-                    (<Redirect to='/' />) : 
-                    (<SignInAndSignUpPage />)} 
-      />
-  </Switch>
+      <GlobalStyle />
+      <Header />
+      <Switch>
+      <Route exact path='/' component={Homepage} />
+      <Route path='/shop' component={ShopPage} />
+      <Route exact path='/checkout' component={CheckoutPage} />
+      <Route exact path='/signin' 
+                    render={() => 
+                      this.props.currentUser ? 
+                      (<Redirect to='/' />) : 
+                      (<SignInAndSignUpPage />)} 
+        />
+      </Switch>
     </div>
   );
   }
